@@ -2,6 +2,10 @@ import os
 import random
 from collections import deque
 
+# Dynamically locate the directory where this script resides
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+TEST_DIR = os.path.join(SCRIPT_DIR, "tests")
+
 def solve_maze(n, m, maze):
     """The Test Oracle: Generates the ground-truth output string."""
     if maze[0][0] == 1 or maze[n-1][m-1] == 1:
@@ -37,7 +41,8 @@ def maze_to_string(n, m, maze):
     return header + body + "\n"
 
 def generate_test_cases():
-    os.makedirs("bfs_tests", exist_ok=True)
+    # Creates the 'tests' folder inside the script's directory
+    os.makedirs(TEST_DIR, exist_ok=True)
     tests = {}
     
     # --- HAND-CRAFTED EDGY CASES (1 to 10) ---
@@ -99,14 +104,14 @@ def generate_test_cases():
         expected_output = solve_maze(n, m, maze)
         
         # 2. Write Input File
-        with open(os.path.join("tests", f"{name}.in"), "w") as f:
+        with open(os.path.join(TEST_DIR, f"{name}.in"), "w") as f:
             f.write(maze_to_string(n, m, maze))
             
         # 3. Write Output File
-        with open(os.path.join("tests", f"{name}.out"), "w") as f:
+        with open(os.path.join(TEST_DIR, f"{name}.out"), "w") as f:
             f.write(expected_output)
             
-    print(f"Generated {len(tests)} battle-ready test cases in the '/tests' directory.")
+    print(f"Generated {len(tests)} battle-ready test cases in: {TEST_DIR}")
 
 if __name__ == "__main__":
     generate_test_cases()
