@@ -1,8 +1,0 @@
-# Ignore compiled executables
-*.exe
-*.o
-*.out
-
-# Optional: If you only want to share your generator script and not the 30 generated text files
-tests/*.in
-tests/*.out
